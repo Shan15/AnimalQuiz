@@ -1,5 +1,7 @@
 package ch.bbw;
 
+import ch.bbw.DbServices.UserDBService;
+import ch.bbw.models.Statistics;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
@@ -9,15 +11,17 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 
+import java.util.Scanner;
+
 public class Main {
+    private static Statistics currentStats = new Statistics();
+    private static UserDBService userDBService = new UserDBService();
+
     public static void main(String[] args) {
-        ConnectionString connectionString = new ConnectionString("mongodb://root:root@localhost:27017");
-        MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString).serverApi(ServerApi.builder().version(ServerApiVersion.V1).build()).build();
-        MongoClient mongoClient = MongoClients.create(settings);
-        MongoDatabase database = mongoClient.getDatabase("animalQuiz");
-        MongoIterable<String> list = database.listCollectionNames();
-        for (String name : list) {
-            System.out.println(name);
-        }
+        System.out.println("What's your name?");
+        Scanner in = new Scanner(System.in);
+        String name = in.nextLine();
+        currentStats.setName(name);
+        userDBService.createUser(currentStats);
     }
 }
