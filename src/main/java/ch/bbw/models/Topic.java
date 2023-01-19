@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Thema {
+public class Topic {
     private String name;
     private List<Question> questions;
 }

@@ -2,9 +2,8 @@ package ch.bbw;
 
 import ch.bbw.DbServices.UserDBService;
 import ch.bbw.models.Animal;
-import ch.bbw.models.Question;
 import ch.bbw.models.Statistics;
-import ch.bbw.models.Thema;
+import ch.bbw.models.Topic;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<Animal> animals = userDBService.getAnimalsFromDB();
-        List<Thema> themas = userDBService.getQuestionsFromDB();
+        List<Topic> topics = userDBService.getQuestionsFromDB();
         // animals.stream().forEach(s -> System.out.println(s.getAnimal() + " " +
         // s.getMaxAge()));
         System.out.println("What's your name?");
