@@ -13,9 +13,9 @@ db.animal.insertMany([
 ]);
 
 db.createCollection('questions');
-db.animal.insertMany([
+db.questions.insertMany([
     {
-        "thema": "age",
+        "topic": "age",
         "questions": [
             {
                 "question": "welches tier wird am aeltesten?",
