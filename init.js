@@ -13,7 +13,7 @@ db.animal.insertMany([
 ]);
 
 db.createCollection('questions');
-db.animal.insertMany([
+db.questions.insertMany([
     {
         "topic": "age",
         "questions": [
