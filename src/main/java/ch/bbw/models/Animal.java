@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class Animal {
     private String animal;
-    private int maxAge;
+    private int age;
 }

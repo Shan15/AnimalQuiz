@@ -4,21 +4,26 @@ db.createCollection('animal');
 db.animal.insertMany([
     {
         "animal": "Elephant",
-        "maxAge": 55
+        "age": 55
     },
     {
         "animal": "Monkey",
-        "maxAge": 10
+        "age": 10
     }
 ]);
 
 db.createCollection('questions');
 db.animal.insertMany([
     {
-        "question": "welches tier wird am aeltesten?",
-        "property": "age",
-        "criteria": "max"
-    },
+        "thema": "age",
+        "questions": [
+            {
+                "question": "welches tier wird am aeltesten?",
+                "property": "age",
+                "criteria": "max"
+            }
+        ]
+    }
 ]);
 
 db.createCollection("statistics");

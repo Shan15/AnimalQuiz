@@ -1,6 +1,7 @@
 package ch.bbw.DbServices;
 
 import ch.bbw.models.Animal;
+import ch.bbw.models.Thema;
 import ch.bbw.models.Question;
 import ch.bbw.models.Statistics;
 import com.google.gson.Gson;
@@ -50,8 +51,8 @@ public class UserDBService {
         return result;
     }
 
-    public List<Question> getQuestionsFromDB() {
-        List<Question> result = new ArrayList<>();
+    public List<Thema> getQuestionsFromDB() {
+        List<Thema> result = new ArrayList<>();
 
         try (MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
@@ -65,8 +66,8 @@ public class UserDBService {
                 while (it.hasNext()) {
                     Document doc = it.next();
                     Gson gson = new GsonBuilder().create();
-                    Question question = gson.fromJson(doc.toJson(), Question.class);
-                    result.add(question);
+                    Thema thema = gson.fromJson(doc.toJson(), Thema.class);
+                    result.add(thema);
                 }
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to run a command: " + me);
