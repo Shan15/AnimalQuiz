@@ -1,7 +1,11 @@
 package ch.bbw;
 
 import ch.bbw.DbServices.UserDBService;
+import ch.bbw.models.Animal;
+import ch.bbw.models.Question;
 import ch.bbw.models.Statistics;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,6 +13,10 @@ public class Main {
     private static UserDBService userDBService = new UserDBService();
 
     public static void main(String[] args) {
+        List<Animal> animals = userDBService.getAnimalsFromDB();
+        List<Question> questions = userDBService.getQuestionsFromDB();
+        // animals.stream().forEach(s -> System.out.println(s.getAnimal() + " " +
+        // s.getMaxAge()));
         System.out.println("What's your name?");
         Scanner in = new Scanner(System.in);
         String name = in.nextLine();

@@ -12,6 +12,15 @@ db.animal.insertMany([
     }
 ]);
 
+db.createCollection('questions');
+db.animal.insertMany([
+    {
+        "question": "welches tier wird am aeltesten?",
+        "property": "age",
+        "criteria": "max"
+    },
+]);
+
 db.createCollection("statistics");
 db.statistics.insertMany([
     {
