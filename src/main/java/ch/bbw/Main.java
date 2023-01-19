@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Main {
     private static Statistics currentStats = new Statistics();
     private static UserDBService userDBService = new UserDBService();
+    public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         List<Animal> animals = userDBService.getAnimalsFromDB();
@@ -19,27 +20,32 @@ public class Main {
         // animals.stream().forEach(s -> System.out.println(s.getAnimal() + " " +
         // s.getMaxAge()));
         System.out.println("What's your name?");
-        Scanner in = new Scanner(System.in);
-        String name = in.nextLine();
-        currentStats.setName(name);
-        userDBService.createUser(currentStats);
-        in.close();
-        String[] answers = { "2", "3", "4" };
-        String answer = askQuestion("Wie viele Beine hat eine Katze mit 3 Beinen?", answers);
-        System.out.println(answer);
+        String name = generateUser(input.nextLine());
+        String[] answers = {"2", "3", "4", "5"};
+        System.out.println("Wie viele Beine hat eine Katze mit 3 Beinen?");
+        String answer = askQuestion("Wie viele Beine hat eine Katze mit 3 Beinen?", answers, input.nextLine());
+
+        System.out.println(answer + name);
     }
 
 
 
-    public static String askQuestion(String question, String[] answers) {
+    public static String askQuestion(String question, String[] answers, String string) {
         System.out.println(question);
         // Arrays.stream(answers).forEach(System.out.println());
         System.out.println("a: " + answers[0]);
         System.out.println("b: " + answers[1]);
         System.out.println("c: " + answers[2]);
+        System.out.println("d: " + answers[3]);
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.nextLine();
         scanner.close();
         return answer;
+    }
+
+    public static String generateUser(String name) {
+        currentStats.setName(name);
+        userDBService.createUser(currentStats);
+        return name;
     }
 }
