@@ -42,9 +42,9 @@ public class Main {
     public static boolean askQuestion2(Question question, List<Animal> animals) {
         System.out.println(question.getQuestion());
         Collections.shuffle(animals);
-        System.out.println("0: " + animals.get(0).getProperty(question.getProperty()));
-        System.out.println("1: " + animals.get(1).getProperty(question.getProperty()));
-        System.out.println("2: " + animals.get(2).getProperty(question.getProperty()));
+        System.out.println("0: " + animals.get(0).getAnimal());
+        System.out.println("1: " + animals.get(1).getAnimal());
+        System.out.println("2: " + animals.get(2).getAnimal());
         System.out.println("Welches Tier trifft zu? ");
         String answer = input.nextLine();
         List<Integer> propertyList = Arrays.asList(animals.get(0).getProperty(question.getProperty()),
