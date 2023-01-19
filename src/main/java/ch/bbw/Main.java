@@ -2,6 +2,7 @@ package ch.bbw;
 
 import ch.bbw.DbServices.UserDBService;
 import ch.bbw.models.Animal;
+import ch.bbw.models.Question;
 import ch.bbw.models.Statistics;
 import ch.bbw.models.Topic;
 
