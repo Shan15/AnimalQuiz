@@ -2,11 +2,16 @@ package ch.bbw;
 
 import ch.bbw.DbServices.UserDBService;
 import ch.bbw.models.Animal;
+import ch.bbw.models.Question;
 import ch.bbw.models.Statistics;
 import ch.bbw.models.Topic;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
+import static ch.bbw.DbServices.UserDBService.getQuestion;
+import static java.lang.Integer.parseInt;
 
 public class Main {
     private static Statistics currentStats = new Statistics();
@@ -15,16 +20,15 @@ public class Main {
 
     public static void main(String[] args) {
         List<Animal> animals = userDBService.getAnimalsFromDB();
-        List<Topic> topics = userDBService.getQuestionsFromDB();
         // animals.stream().forEach(s -> System.out.println(s.getAnimal() + " " +
         // s.getMaxAge()));
         System.out.println("What's your name?");
         String name = generateUser(input.nextLine());
-        String[] answers = {"2", "3", "4", "5"};
-        System.out.println("Wie viele Beine hat eine Katze mit 3 Beinen?");
-        String answer = askQuestion("Wie viele Beine hat eine Katze mit 3 Beinen?", answers, input.nextLine());
 
-        System.out.println(answer + name);
+        List<Question> questions = getQuestion(askTopic());
+        Collections.shuffle(questions);
+        System.out.println(questions.get(0).getQuestion());
+        System.out.println("ksldjf");
     }
 
 
@@ -40,6 +44,18 @@ public class Main {
         String answer = scanner.nextLine();
         scanner.close();
         return answer;
+    }
+
+    public static String askTopic() {
+        List<Topic> topics = userDBService.getQuestionsFromDB();
+
+        for (Topic topic : topics) {
+            System.out.println("1" + topic.getTopic());
+        }
+
+        String topicIndex = input.nextLine();
+
+        return topics.get(parseInt(topicIndex) - 1).getTopic();
     }
 
     public static String generateUser(String name) {

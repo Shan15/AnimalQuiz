@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Topic {
-    private String name;
+    private String topic;
     private List<Question> questions;
 }

@@ -21,6 +21,11 @@ db.questions.insertMany([
                 "question": "welches tier wird am aeltesten?",
                 "property": "age",
                 "criteria": "max"
+            },
+            {
+                "question": "welches tier wird am fruehsten sterben?",
+                "property": "age",
+                "criteria": "min"
             }
         ]
     }
