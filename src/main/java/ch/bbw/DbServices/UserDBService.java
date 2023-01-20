@@ -162,7 +162,7 @@ public class UserDBService {
             try {
                 MongoCollection<Document> statisticsDocs = database.getCollection("statistics");
                 Gson gson = new GsonBuilder().create();
-                AggregateIterable<Document> documents = statisticsDocs.aggregate(Arrays.asList(Aggregates.sort(Sorts.descending("points"))));
+                AggregateIterable<Document> documents = statisticsDocs.aggregate(Arrays.asList(Aggregates.sort(Sorts.descending("points")), Aggregates.limit(3)));
                 for (Document doc : documents) {
                     Statistics statistics = gson.fromJson(doc.toJson(), Statistics.class);
                     result.add(statistics);
