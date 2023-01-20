@@ -112,8 +112,7 @@ public class UserDBService {
             try {
 
                 Gson gson = new GsonBuilder().create();
-                // Object zu JSON String konvertieren, danach JSON String zu MongoDB Document
-                // konvertieren
+
                 Document d = org.bson.Document.parse(gson.toJson(stat));
                 MongoCollection<org.bson.Document> statistics = database.getCollection("statistics");
 
