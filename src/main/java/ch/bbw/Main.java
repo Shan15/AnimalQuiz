@@ -12,7 +12,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static ch.bbw.DbServices.UserDBService.getQuestion;
-import static java.lang.Integer.parseInt;
 
 public class Main {
     private static Statistics currentStats = new Statistics();
