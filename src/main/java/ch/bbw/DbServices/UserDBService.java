@@ -6,6 +6,7 @@ import ch.bbw.models.Topic;
 import ch.bbw.models.Statistics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
@@ -19,6 +20,8 @@ import java.util.List;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 public class UserDBService {
     private static final ConnectionString connectionString = new ConnectionString("mongodb://root:root@localhost");
@@ -104,7 +107,7 @@ public class UserDBService {
     }
 
 
-    public void createUser(Statistics stat) {
+    public Statistics createUser(Statistics stat) {
 
         try (MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder().applyConnectionString(connectionString).build())) {
@@ -117,11 +120,42 @@ public class UserDBService {
                 MongoCollection<org.bson.Document> statistics = database.getCollection("statistics");
 
                 statistics.insertOne(d);
+                stat._id = (ObjectId) d.get("_id");
 
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to run a command: " + me);
             }
 
         }
+        return stat;
+    }
+
+    public Statistics updateUser(Statistics s) {
+        Gson gson = new GsonBuilder().create();
+
+        try (MongoClient mongoClient = MongoClients.create(
+                MongoClientSettings.builder().applyConnectionString(new ConnectionString("mongodb://root:root@localhost/carCards")).build()
+        )) {
+            MongoDatabase database = mongoClient.getDatabase("carCards");
+            try {
+                MongoCollection<Document> collection = database.getCollection("game");
+                Bson filter = Filters.eq("_id", s._id);
+
+                BasicDBObject updateFields = new BasicDBObject();
+                updateFields.append("time", s.getTime());
+                updateFields.append("points", s.getPoints());
+
+                BasicDBObject setQuery = new BasicDBObject();
+                setQuery.append("$set", updateFields);
+                collection.findOneAndUpdate(filter, setQuery);
+
+            } catch (MongoException me) {
+                System.err.println("An error occurred while attempting to run a command: " + me);
+            }
+
+        }
+
+        return s;
+
     }
 }
