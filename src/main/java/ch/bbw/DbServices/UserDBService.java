@@ -35,9 +35,7 @@ public class UserDBService {
             try {
                 MongoCollection<Document> animalDocs = database.getCollection("animal");
                 FindIterable<Document> iterDoc = animalDocs.find();
-                Iterator<Document> it = iterDoc.iterator();
-                while (it.hasNext()) {
-                    Document doc = it.next();
+                for (Document doc : iterDoc) {
                     Gson gson = new GsonBuilder().create();
                     Animal animal = gson.fromJson(doc.toJson(), Animal.class);
                     result.add(animal);
@@ -61,9 +59,7 @@ public class UserDBService {
             try {
                 MongoCollection<Document> questionDocs = database.getCollection("questions");
                 FindIterable<Document> iterDoc = questionDocs.find();
-                Iterator<Document> it = iterDoc.iterator();
-                while (it.hasNext()) {
-                    Document doc = it.next();
+                for (Document doc : iterDoc) {
                     Gson gson = new GsonBuilder().create();
                     Topic topic = gson.fromJson(doc.toJson(), Topic.class);
                     result.add(topic);
@@ -77,7 +73,7 @@ public class UserDBService {
     }
 
     public static List<Question> getQuestion(String askTopic) {
-        List<Question> result = new ArrayList<>();
+        List<Question> result =  new ArrayList<>();
 
         try (MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
