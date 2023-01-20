@@ -12,13 +12,11 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -49,7 +47,6 @@ public class UserDBService {
             }
 
         }
-        System.out.println("Found " + result.size());
         return result;
     }
 
@@ -76,7 +73,6 @@ public class UserDBService {
             }
 
         }
-        System.out.println("Found " + result.size());
         return result;
     }
 
@@ -101,7 +97,6 @@ public class UserDBService {
             }
 
         }
-        System.out.println("Found " + result.size());
         return result;
 
     }
@@ -153,8 +148,30 @@ public class UserDBService {
             }
 
         }
-
         return s;
+    }
 
+    public List<Statistics> getLeaderboard() {
+        List<Statistics> result = new ArrayList<>();
+
+        try (MongoClient mongoClient = MongoClients.create(
+                MongoClientSettings.builder()
+                        .applyConnectionString(connectionString)
+                        .build())) {
+            MongoDatabase database = mongoClient.getDatabase("animalQuiz");
+            try {
+                MongoCollection<Document> statisticsDocs = database.getCollection("statistics");
+                Gson gson = new GsonBuilder().create();
+                AggregateIterable<Document> documents = statisticsDocs.aggregate(Arrays.asList(Aggregates.sort(Sorts.descending("points"))));
+                for (Document doc : documents) {
+                    Statistics statistics = gson.fromJson(doc.toJson(), Statistics.class);
+                    result.add(statistics);
+                }
+            } catch (MongoException me) {
+                System.err.println("An error occurred while attempting to run a command: " + me);
+            }
+
+        }
+        return result;
     }
 }

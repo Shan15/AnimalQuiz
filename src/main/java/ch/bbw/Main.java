@@ -32,6 +32,11 @@ public class Main {
 
         finishGame();
 
+        List<Statistics> leaderboard = userDBService.getLeaderboard();
+        for (Statistics statistics : leaderboard) {
+            System.out.println(statistics.getName() + ": " +statistics.getPoints());
+        }
+
     }
 
     private static void finishGame() {
