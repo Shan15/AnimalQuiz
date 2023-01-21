@@ -33,7 +33,7 @@ public class Main {
         List<Statistics> leaderboard = userDBService.getLeaderboard();
         System.out.println("--------------- Leaderboard ----------------");
         for (Statistics statistics : leaderboard) {
-            System.out.println(String.format("%s: %d in %dms", statistics.getName(), statistics.getPoints(), statistics.getTime()));
+            System.out.printf("%s: %d in %dms%n", statistics.getName(), statistics.getPoints(), statistics.getTime());
         }
     }
 
@@ -50,7 +50,7 @@ public class Main {
     public static void askQuestion(Question question, List<Animal> animals) {
         System.out.println(question.getQuestion());
         Collections.shuffle(animals);
-        for (int i = 0; i < animals.size(); i++) {
+        for (int i = 0; i < 3; i++) {
             System.out.printf("%d: %s%n", i + 1, animals.get(i).getAnimal());
         }
         int answer = input.nextInt();
