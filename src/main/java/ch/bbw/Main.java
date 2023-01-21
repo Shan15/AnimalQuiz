@@ -33,7 +33,7 @@ public class Main {
         List<Statistics> leaderboard = userDBService.getLeaderboard();
         System.out.println("--------------- Leaderboard ----------------");
         for (Statistics statistics : leaderboard) {
-            System.out.println(statistics.getName() + ": " + statistics.getPoints());
+            System.out.println(String.format("%s: %d in %dms", statistics.getName(), statistics.getPoints(), statistics.getTime()));
         }
     }
 
