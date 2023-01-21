@@ -7,14 +7,13 @@ import ch.bbw.models.Statistics;
 
 import java.sql.Timestamp;
 import java.util.*;
-
 import java.util.stream.Collectors;
 
 import static ch.bbw.DbServices.UserDBService.getQuestion;
 
 public class Main {
-    private static Statistics currentStats = new Statistics();
     private static final UserDBService userDBService = new UserDBService();
+    private static Statistics currentStats = new Statistics();
     private static Scanner input = new Scanner(System.in);
     private static int points = 0;
 

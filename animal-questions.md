@@ -4,11 +4,9 @@ title: AnimalQuiz
 
 # Grösse
 
-
 - Welches Tier ist das höchste?
 
 - Welches Tier ist das kleinste?
-
 
 # Gewicht
 
@@ -16,24 +14,19 @@ title: AnimalQuiz
 
 - Welches Tier ist das leichteste?
 
-
 # Lebenserwartung
 
 - Welches Tier kann 400 Jahre alt werden?
 
 - Welches Tier hat die kürzeste Lebenserwartung?
 
-
 # Grösse des Wurfes
-
 
 - Welches Tier bringt immer nur ein Junges zur Welt?
 
 - Welches Tier bringt die meisten Jungen zur Welt?
 
-
 # Schlafstunden
-
 
 - Welches Tier schläft am längsten?
 
