@@ -4,7 +4,6 @@ import ch.bbw.DbServices.UserDBService;
 import ch.bbw.models.Animal;
 import ch.bbw.models.Question;
 import ch.bbw.models.Statistics;
-import ch.bbw.models.Topic;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -20,11 +19,11 @@ public class Main {
     private static int points = 0;
 
     public static void main(String[] args) {
-        List<Animal> animals = userDBService.getAnimalsFromDB();
         System.out.println("What's your name?");
         currentStats = generateUser(input.nextLine());
 
-        List<Question> questions = getQuestion(askTopic());
+        List<Animal> animals = userDBService.getAnimalsFromDB(askSpecies());
+        List<Question> questions = getQuestion();
         Collections.shuffle(questions);
         for (Question question : questions) {
             askQuestion(question, animals);
@@ -66,16 +65,16 @@ public class Main {
     }
 
 
-    public static String askTopic() {
-        List<Topic> topics = userDBService.getQuestionsFromDB();
+    public static String askSpecies() {
+        List<String> species = userDBService.getSpecies();
 
-        for (Topic topic : topics) {
-            System.out.println("1" + topic.getTopic());
+        for (int i = 0; i < species.size(); i++) {
+            System.out.printf("%d %s%n", i + 1, species.get(i));
         }
 
         int topicIndex = input.nextInt();
 
-        return topics.get(topicIndex - 1).getTopic();
+        return species.get(topicIndex - 1);
     }
 
     public static Statistics generateUser(String name) {

@@ -12,6 +12,7 @@ public class Animal {
     private int spawnrate;
     private int sleepover;
     private int size;
+    private String animalSpecies;
 
     public int getProperty(String property) {
         int value = 0;

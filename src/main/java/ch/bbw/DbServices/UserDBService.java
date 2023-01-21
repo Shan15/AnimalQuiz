@@ -2,7 +2,6 @@ package ch.bbw.DbServices;
 
 import ch.bbw.models.Animal;
 import ch.bbw.models.Question;
-import ch.bbw.models.Topic;
 import ch.bbw.models.Statistics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,6 +13,7 @@ import com.mongodb.client.*;
 
 import java.util.*;
 
+import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
@@ -24,7 +24,7 @@ import org.bson.types.ObjectId;
 public class UserDBService {
     private static final ConnectionString connectionString = new ConnectionString("mongodb://root:root@localhost");
 
-    public List<Animal> getAnimalsFromDB() {
+    public List<Animal> getAnimalsFromDB(String species) {
         List<Animal> result = new ArrayList<>();
 
         try (MongoClient mongoClient = MongoClients.create(
@@ -34,8 +34,10 @@ public class UserDBService {
             MongoDatabase database = mongoClient.getDatabase("animalQuiz");
             try {
                 MongoCollection<Document> animalDocs = database.getCollection("animal");
-                FindIterable<Document> iterDoc = animalDocs.find();
-                for (Document doc : iterDoc) {
+//                AggregateIterable<Document> documents = animalDocs.aggregate(Arrays.asList());
+                Bson filter = Filters.eq("animalSpecies", species);
+                FindIterable<Document> animals = animalDocs.find(filter);
+                for (Document doc : animals) {
                     Gson gson = new GsonBuilder().create();
                     Animal animal = gson.fromJson(doc.toJson(), Animal.class);
                     result.add(animal);
@@ -48,8 +50,8 @@ public class UserDBService {
         return result;
     }
 
-    public List<Topic> getQuestionsFromDB() {
-        List<Topic> result = new ArrayList<>();
+    public List<String> getSpecies() {
+        List<String> result = new ArrayList<>();
 
         try (MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
@@ -57,12 +59,11 @@ public class UserDBService {
                         .build())) {
             MongoDatabase database = mongoClient.getDatabase("animalQuiz");
             try {
-                MongoCollection<Document> questionDocs = database.getCollection("questions");
-                FindIterable<Document> iterDoc = questionDocs.find();
-                for (Document doc : iterDoc) {
+                MongoCollection<Document> questionDocs = database.getCollection("animal");
+                AggregateIterable<Document> documents = questionDocs.aggregate(Arrays.asList(Aggregates.group("_id", Accumulators.addToSet("species", "$animalSpecies"))));
+                for (Document doc : documents) {
                     Gson gson = new GsonBuilder().create();
-                    Topic topic = gson.fromJson(doc.toJson(), Topic.class);
-                    result.add(topic);
+                    result = (List<String>) doc.get("species");
                 }
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to run a command: " + me);
@@ -72,8 +73,8 @@ public class UserDBService {
         return result;
     }
 
-    public static List<Question> getQuestion(String askTopic) {
-        List<Question> result =  new ArrayList<>();
+    public static List<Question> getQuestion() {
+        List<Question> result = new ArrayList<>();
 
         try (MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
@@ -82,11 +83,11 @@ public class UserDBService {
             MongoDatabase database = mongoClient.getDatabase("animalQuiz");
             try {
                 MongoCollection<Document> questionDocs = database.getCollection("questions");
+                FindIterable<Document> iterDoc = questionDocs.find();
                 Gson gson = new GsonBuilder().create();
-                AggregateIterable<Document> documents = questionDocs.aggregate(Arrays.asList(Aggregates.match(Filters.eq("topic", askTopic))));
-                for (Document doc : documents) {
-                    Topic topic = gson.fromJson(doc.toJson(), Topic.class);
-                    result.addAll(topic.getQuestions());
+                for (Document doc : iterDoc) {
+                    Question topic = gson.fromJson(doc.toJson(), Question.class);
+                    result.add(topic);
                 }
             } catch (MongoException me) {
                 System.err.println("An error occurred while attempting to run a command: " + me);

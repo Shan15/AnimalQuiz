@@ -9,7 +9,7 @@ db.animal.insertMany([
         "size": 300,
         "spawnrate": 1,
         "sleepover": 2,
-        "animalSpecies": "Säugetier"
+        "animalSpecies": "Säugetiere"
     },
     {
         "animal": "Sibirischer Tiger",
@@ -18,7 +18,7 @@ db.animal.insertMany([
         "size": 120,
         "spawnrate": 4,
         "sleepover": 18,
-        "animalSpecies": "Säugetier"
+        "animalSpecies": "Säugetiere"
     },
     {
         "animal": "Mississippi-Alligator",
