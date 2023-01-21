@@ -50,7 +50,7 @@ public class Main {
     public static void askQuestion(Question question, List<Animal> animals) {
         System.out.println(question.getQuestion());
         Collections.shuffle(animals);
-        for (int i = 0; i < animals.size(); i++) {
+        for (int i = 0; i < 3; i++) {
             System.out.printf("%d: %s%n", i + 1, animals.get(i).getAnimal());
         }
         int answer = input.nextInt();
