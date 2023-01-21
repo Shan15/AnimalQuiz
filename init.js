@@ -3,7 +3,7 @@ db = db.getSiblingDB('animalQuiz');
 db.createCollection('animal');
 db.animal.insertMany([
     {
-        "animal": "African Elephant",
+        "animal": "Afrikanischer Elefant",
         "age": 40,
         "weight": 5000,
         "size": 300,
@@ -12,32 +12,80 @@ db.animal.insertMany([
         "animalSpecies": "Säugetier"
     },
     {
-        "animal": "Siberian Tiger",
+        "animal": "Sibirischer Tiger",
         "age": 16,
         "weight": 300,
-        "size": 100,
+        "size": 120,
         "spawnrate": 4,
         "sleepover": 18,
         "animalSpecies": "Säugetier"
     },
     {
-        "animal": "American Alligator",
+        "animal": "Mississippi-Alligator",
         "age": 50,
         "weight": 230,
         "size": 240,
         "spawnrate": 30,
         "sleepover": 17,
-        "animalSpecies": "Fisch"
+        "animalSpecies": "Reptilien"
     },
     {
-        "animal": "Komodo Dragon",
+        "animal": "Komodowaran",
         "age": 30,
         "weight": 91,
         "size": 310,
         "spawnrate": 1,
         "sleepover": 17,
-        "animalSpecies": "Vogel"
+        "animalSpecies": "Reptilien"
     },
+
+    {
+        "animal": "Wombat",
+        "age": 10,
+        "weight": 35,
+        "size": 120,
+        "spawnrate": 1,
+        "sleepover": 12,
+        "animalSpecies": "Säugetiere"
+    },
+    {
+        "animal": "Vielfrass",
+        "age": 13,
+        "weight": 25,
+        "size": 110,
+        "spawnrate": 4,
+        "sleepover": 4,
+        "animalSpecies": "Säugetiere"
+    },
+    {
+        "animal": "Leistenkrokodil",
+        "age": 70,
+        "weight": 520,
+        "size": 600,
+        "spawnrate": 60,
+        "sleepover": 0,
+        "animalSpecies": "Reptilien"
+    },
+    {
+        "animal": "Weisskopfseeadler",
+        "age": 20,
+        "weight": 25,
+        "size": 100,
+        "spawnrate": 3,
+        "sleepover": 14,
+        "animalSpecies": "Vögel"
+    },
+    {
+        "animal": "Grizzlybär",
+        "age": 25,
+        "weight": 500,
+        "size": 2,
+        "spawnrate": 2,
+        "sleepover": 14,
+        "animalSpecies": "Säugetiere"
+    },
+
+
 ]);
 
 db.createCollection('questions');
@@ -45,7 +93,7 @@ db.questions.insertMany([
 
 
     {
-        "question": "Welches Tier kann 400 Jahre alt werden?",
+        "question": "Welches Tier hat die längste Lebenserwartung?",
         "property": "age",
         "criteria": "max"
     },
@@ -89,7 +137,7 @@ db.questions.insertMany([
 
 
     {
-        "question": "Welches Tier ist das höchste?",
+        "question": "Welches Tier ist das grösste?",
         "property": "size",
         "criteria": "max"
     },
