@@ -34,7 +34,6 @@ public class UserDBService {
             MongoDatabase database = mongoClient.getDatabase("animalQuiz");
             try {
                 MongoCollection<Document> animalDocs = database.getCollection("animal");
-//                AggregateIterable<Document> documents = animalDocs.aggregate(Arrays.asList());
                 Bson filter = Filters.eq("animalSpecies", species);
                 FindIterable<Document> animals = animalDocs.find(filter);
                 for (Document doc : animals) {
