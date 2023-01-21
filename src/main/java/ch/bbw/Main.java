@@ -50,19 +50,19 @@ public class Main {
     public static void askQuestion(Question question, List<Animal> animals) {
         System.out.println(question.getQuestion());
         Collections.shuffle(animals);
-        System.out.println("0: " + animals.get(0).getAnimal());
-        System.out.println("1: " + animals.get(1).getAnimal());
-        System.out.println("2: " + animals.get(2).getAnimal());
-        System.out.println("Welches Tier trifft zu? ");
+        for (int i = 0; i < animals.size(); i++) {
+            System.out.printf("%d: %s%n", i + 1, animals.get(i).getAnimal());
+        }
         int answer = input.nextInt();
         System.out.println("--------------------------------------------");
+
         List<Integer> propertyList = Arrays.asList(animals.get(0).getProperty(question.getProperty()), animals.get(1).getProperty(question.getProperty()), animals.get(2).getProperty(question.getProperty()));
         if (question.getCriteria().equals("min")) {
             propertyList = propertyList.stream().sorted().collect(Collectors.toList());
         } else {
             propertyList = propertyList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
         }
-        if (animals.get(answer).getProperty(question.getProperty()) == propertyList.get(0)) {
+        if (animals.get(answer - 1).getProperty(question.getProperty()) == propertyList.get(0)) {
             points++;
         }
     }
