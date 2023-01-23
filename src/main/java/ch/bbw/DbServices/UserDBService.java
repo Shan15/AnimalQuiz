@@ -171,4 +171,44 @@ public class UserDBService {
         }
         return result;
     }
+
+
+    public boolean checkAnswer(Question question, List<ObjectId> idList, ObjectId answer) {
+        // List<String> result = new ArrayList<>();
+
+        try (MongoClient mongoClient = MongoClients.create(
+                MongoClientSettings.builder()
+                        .applyConnectionString(connectionString)
+                        .build())) {
+            MongoDatabase database = mongoClient.getDatabase("animalQuiz");
+            try {
+                MongoCollection<Document> questionDocs = database.getCollection("animal");
+                System.out.println(idList.get(0));
+                AggregateIterable<Document> documents;
+                if(question.getCriteria().equals("max")){
+                    documents = questionDocs.aggregate(Arrays.asList( Aggregates.match(Filters.in("_id",idList.get(0),idList.get(1),idList.get(2))) ,Aggregates.sort(Sorts.descending(question.getProperty()))));
+                } else {
+                    documents = questionDocs.aggregate(Arrays.asList( Aggregates.match(Filters.in("_id",idList.get(0),idList.get(1),idList.get(2))) ,Aggregates.sort(Sorts.ascending(question.getProperty()))));
+                }
+                Gson gson = new GsonBuilder().create();
+
+                for (Document doc : documents) {
+                    // Animal animal = gson.fromJson(doc.toJson(), Animal.class);
+                    // System.out.println(doc.get("_id"));
+                    // System.out.println(animal.get_id());
+                    if (answer == doc.get("_id")){
+                        return true;
+                    }
+                    return false;
+
+                }
+            } catch (MongoException me) {
+                System.err.println("An error occurred while attempting to run a command: " + me);
+            }
+
+        }
+        return true;
+    }
+
 }
+
