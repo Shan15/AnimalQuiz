@@ -8,20 +8,19 @@ import org.bson.types.ObjectId;
 
 import java.sql.Timestamp;
 import java.util.*;
-
 import java.util.stream.Collectors;
 
 import static ch.bbw.DbServices.UserDBService.getQuestion;
 
 public class Main {
-    private static Statistics currentStats = new Statistics();
     private static final UserDBService userDBService = new UserDBService();
+    private static Statistics currentStats = new Statistics();
     private static Scanner input = new Scanner(System.in);
     private static int points = 0;
 
     public static void main(String[] args) {
-        System.out.println("What's your name?");
-        currentStats = generateUser(input.nextLine());
+
+        currentStats = generateUser();
 
         List<Animal> animals = userDBService.getAnimalsFromDB(askSpecies());
         List<Question> questions = getQuestion();
@@ -33,8 +32,9 @@ public class Main {
         finishGame();
 
         List<Statistics> leaderboard = userDBService.getLeaderboard();
+        System.out.println("--------------- Leaderboard ----------------");
         for (Statistics statistics : leaderboard) {
-            System.out.println(statistics.getName() + ": " + statistics.getPoints());
+            System.out.printf("%s: %d in %dms%n", statistics.getName(), statistics.getPoints(), statistics.getTime());
         }
     }
 
@@ -43,16 +43,17 @@ public class Main {
         currentStats.setPoints(points);
         currentStats.setTime(timestamp.getTime() - currentStats.getTime());
         currentStats = userDBService.updateUser(currentStats);
+        System.out.println("                   FINISH                   ");
+        System.out.println("--------------------------------------------");
         System.out.println("Congrats! You got " + currentStats.getPoints() + " points in " + currentStats.getTime() + " ms");
     }
 
     public static void askQuestion(Question question, List<Animal> animals) {
         System.out.println(question.getQuestion());
         Collections.shuffle(animals);
-        System.out.println("0: " + animals.get(0).getAnimal());
-        System.out.println("1: " + animals.get(1).getAnimal());
-        System.out.println("2: " + animals.get(2).getAnimal());
-        System.out.println("Welches Tier trifft zu? ");
+        for (int i = 0; i < 3; i++) {
+            System.out.printf("%d: %s%n", i + 1, animals.get(i).getAnimal());
+        }
         int answer = input.nextInt();
         List<ObjectId> isList = Arrays.asList(animals.get(0).get_id(), animals.get(1).get_id(), animals.get(2).get_id());
         ObjectId answerID = animals.get(answer).get_id();
@@ -75,7 +76,7 @@ public class Main {
 
     public static String askSpecies() {
         List<String> species = userDBService.getSpecies();
-
+        System.out.println("---------------- Choose ----------------");
         for (int i = 0; i < species.size(); i++) {
             System.out.printf("%d %s%n", i + 1, species.get(i));
         }
@@ -85,7 +86,10 @@ public class Main {
         return species.get(topicIndex - 1);
     }
 
-    public static Statistics generateUser(String name) {
+    public static Statistics generateUser() {
+        System.out.println("----------------- Name -----------------");
+        System.out.println("What's your name?");
+        String name = input.nextLine();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         currentStats.setName(name);
         currentStats.setTime(timestamp.getTime());
