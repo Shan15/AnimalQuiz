@@ -55,16 +55,8 @@ public class Main {
             System.out.printf("%d: %s%n", i + 1, animals.get(i).getAnimal());
         }
         int answer = input.nextInt();
-        List<ObjectId> isList = Arrays.asList(animals.get(0).get_id(), animals.get(1).get_id(), animals.get(2).get_id());
-        ObjectId answerID = animals.get(answer).get_id();
-        //   System.out.println(userDBService.checkAnswer(question, isList, answerID));
-        // List<Integer> propertyList = Arrays.asList(animals.get(0).getProperty(question.getProperty()), animals.get(1).getProperty(question.getProperty()), animals.get(2).getProperty(question.getProperty()));
-        //      if (question.getCriteria().equals("min")) {
-        //  propertyList = propertyList.stream().sorted().collect(Collectors.toList());
-        // } else {
-        //       propertyList = propertyList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-        // }
-        //      if (animals.get(answer).getProperty(question.getProperty()) == propertyList.get(0)) {
+        List<String> isList = Arrays.asList(animals.get(0).getAnimal(), animals.get(1).getAnimal(), animals.get(2).getAnimal());
+        String answerID = animals.get(answer).getAnimal();
         if (userDBService.checkAnswer(question, isList, answerID)) {
             System.out.println("This is correct");
             points++;
