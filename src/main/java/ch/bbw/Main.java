@@ -54,9 +54,15 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             System.out.printf("%d: %s%n", i + 1, animals.get(i).getAnimal());
         }
-        int answer = input.nextInt();
+        int answer = 0;
+        while (answer <= 0 || answer > 3) {
+            System.out.println("Please enter a number between 1 to 3");
+            answer = input.nextInt();
+        }
+
+
         List<String> isList = Arrays.asList(animals.get(0).getAnimal(), animals.get(1).getAnimal(), animals.get(2).getAnimal());
-        String answerID = animals.get(answer).getAnimal();
+        String answerID = animals.get(answer - 1).getAnimal();
         if (userDBService.checkAnswer(question, isList, answerID)) {
             System.out.println("This is correct");
             points++;
@@ -73,8 +79,11 @@ public class Main {
             System.out.printf("%d %s%n", i + 1, species.get(i));
         }
 
-        int topicIndex = input.nextInt();
-
+        int topicIndex = 0;
+        while (topicIndex <= 0 || topicIndex > 3) {
+            System.out.println("Please enter a number between 1 to 3");
+            topicIndex = input.nextInt();
+        }
         return species.get(topicIndex - 1);
     }
 
