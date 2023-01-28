@@ -69,7 +69,7 @@ db.animal.insertMany([
     {
         "animal": "Weisskopfseeadler",
         "age": 20,
-        "weight": 25,
+        "weight": 6,
         "size": 100,
         "spawnrate": 3,
         "sleepover": 14,
@@ -79,11 +79,60 @@ db.animal.insertMany([
         "animal": "Grizzlybär",
         "age": 25,
         "weight": 500,
-        "size": 2,
+        "size": 240,
         "spawnrate": 2,
         "sleepover": 14,
         "animalSpecies": "Säugetiere"
     },
+
+    {
+        "animal": "Andenkondor",
+        "age": 20,
+        "weight": 15,
+        "size": 130,
+        "spawnrate": 1,
+        "sleepover": 10,
+        "animalSpecies": "Vögel"
+    },
+    {
+        "animal": "Seeadler",
+        "age": 14,
+        "weight": 5,
+        "size": 240,
+        "spawnrate": 2,
+        "sleepover": 14,
+        "animalSpecies": "Vögel"
+    },
+
+    {
+        "animal": "Goliathfrosch",
+        "age": 10,
+        "weight": 3,
+        "size": 40,
+        "spawnrate": 30,
+        "sleepover": 12,
+        "animalSpecies": "Amphibien"
+    },
+    {
+        "animal": "Pfeilgiftfrosch",
+        "age": 8,
+        "weight": 5,
+        "size": 5,
+        "spawnrate": 2,
+        "sleepover": 14,
+        "animalSpecies": "Amphibien"
+    },
+    {
+        "animal": "Riesensalamander",
+        "age": 60,
+        "weight": 20,
+        "size": 120,
+        "spawnrate": 600,
+        "sleepover": 12,
+        "animalSpecies": "Amphibien"
+    }
+
+
 
 
 ]);
