@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserDBService {
+public class DBService {
     private static final ConnectionString connectionString = new ConnectionString("mongodb://root:root@localhost");
 
     public static List<Question> getQuestion() {
@@ -172,8 +172,6 @@ public class UserDBService {
 
 
     public boolean checkAnswer(Question question, List<String> animalList, String answer) {
-        // List<String> result = new ArrayList<>();
-
         try (MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                         .applyConnectionString(connectionString)
@@ -194,7 +192,7 @@ public class UserDBService {
 
                 return false;
             } catch (MongoException me) {
-                System.err.println("An error occurred while attempting to run a command: " + me);
+                System.err.println("An eörror occurred while attempting to run a command: " + me);
             }
 
         }
